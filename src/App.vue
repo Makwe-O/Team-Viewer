@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="flex h-full mt-10">
     <div class="w-1/2  flex justify-center">
-      <TeamList :teamList="members" />
+      <TeamList />
     </div>
     <div class="w-1/2 h-12">
       <Timer />
@@ -14,7 +14,7 @@
 import TeamList from "./components/TeamList.vue";
 import Timer from "./components/Timer.vue";
 import Form from "./components/Form.vue";
-import { db } from "./config/firebase";
+
 import "@/assets/css/tailwind.css";
 
 export default {
@@ -23,25 +23,6 @@ export default {
     TeamList,
     Timer,
     Form
-  },
-  data() {
-    return {
-      members: [],
-      isLoading: true
-    };
-  },
-  mounted() {
-    // db.get().then(snapshot => console.log(snapshot));
-
-    db.onSnapshot(querySnapshot => {
-      let members = [];
-
-      querySnapshot.forEach(doc => {
-        let member = doc.data();
-        members.push(member);
-      });
-      this.members = members;
-    });
   }
 };
 </script>

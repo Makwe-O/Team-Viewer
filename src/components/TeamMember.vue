@@ -8,7 +8,7 @@
 export default {
   name: "TeamMember",
   props: {
-    member: String
+    member: Object
   }
 };
 </script>
