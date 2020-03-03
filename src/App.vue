@@ -3,7 +3,7 @@
     <div class="w-1/2  flex justify-center">
       <TeamList />
     </div>
-    <div class="w-1/2 h-12">
+    <div class="w-1/2 flex flex-col justify-center">
       <Timer />
       <Form />
     </div>
