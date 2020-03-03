@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full px-8">
+  <div class="w-full px-8 overflow">
     <TeamMember
       v-for="member in teamList"
       v-bind:key="member"
@@ -20,3 +20,13 @@ export default {
   }
 };
 </script>
+<style>
+.overflow {
+  height: 90vh;
+  overflow-y: scroll;
+}
+.overflow::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f5f5f5;
+}
+</style>

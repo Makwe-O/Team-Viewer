@@ -1,5 +1,5 @@
 <template>
-  <form class="w-full max-w-sm" @submit.prevent="handleSubmit">
+  <form class="w-full max-w-sm m-auto" @submit.prevent="handleSubmit">
     <div class="flex items-center border-b border-b-2 border-teal-500 py-2">
       <input
         class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
