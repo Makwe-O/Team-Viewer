@@ -1,9 +1,9 @@
 <template>
-  <div id="app" class="flex mb-4">
-    <div class="w-1/2 bg-gray-400 h-12">
+  <div id="app" class="flex h-full mt-10">
+    <div class="w-1/2  flex justify-center">
       <TeamList :teamList="members" />
     </div>
-    <div class="w-1/2 bg-gray-400 h-12">
+    <div class="w-1/2 h-12">
       <Timer />
       <Form />
     </div>
@@ -11,13 +11,14 @@
 </template>
 
 <script>
-import TeamList from './components/TeamList.vue';
-import Timer from './components/Timer.vue';
-import Form from './components/Form.vue';
-import '@/assets/css/tailwind.css';
+import TeamList from "./components/TeamList.vue";
+import Timer from "./components/Timer.vue";
+import Form from "./components/Form.vue";
+import { db } from "./config/firebase";
+import "@/assets/css/tailwind.css";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     TeamList,
     Timer,
@@ -30,18 +31,17 @@ export default {
     };
   },
   mounted() {
-    this.$http
-      .get('https://team-viewr.firebaseio.com/data.json')
-      .then(response => response.json())
-      .then(data => {
-        const cleanData = [];
-        for (let key in data) {
-          cleanData.push(key);
-        }
-        console.log(cleanData);
-        this.members = cleanData;
-        this.isLoading = false;
+    // db.get().then(snapshot => console.log(snapshot));
+
+    db.onSnapshot(querySnapshot => {
+      let members = [];
+
+      querySnapshot.forEach(doc => {
+        let member = doc.data();
+        members.push(member);
       });
+      this.members = members;
+    });
   }
 };
 </script>
@@ -53,6 +53,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

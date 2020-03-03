@@ -19,20 +19,34 @@
 </template>
 
 <script>
+import { db } from "../config/firebase";
+
 export default {
-  name: 'Form',
+  name: "Form",
   data() {
     return {
-      formInput: { name: '' }
+      formInput: { name: "" }
     };
   },
   methods: {
     handleSubmit() {
-      this.$http
-        .post('https://team-viewr.firebaseio.com/data.json', this.formInput)
-        .then(response => console.log(response))
-        .catch(err => console.log(err));
-      this.formInput.name = '';
+      if (this.formInput !== "") {
+        db.add(this.formInput)
+          .then(
+            this.$toasted.show(`${this.formInput.name} added successfully`, {
+              theme: "toasted-primary",
+              position: "top-center",
+              duration: 4000
+            })
+          )
+          .catch(err => {
+            this.$toasted.show(`An error occured ${err}`, {
+              theme: "toasted-primary",
+              position: "top-center",
+              duration: 4000
+            });
+          });
+      }
     }
   }
 };
