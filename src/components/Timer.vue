@@ -15,7 +15,7 @@
             v-model="time"
           />
           <button
-            @click="startTimer"
+            @click="handleSubmit"
             type="submit"
             class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded mt-4"
           >Begin</button>
@@ -29,9 +29,18 @@
         }}
       </h1>
       <div>
-        <button class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded mx-2 my-1">Start</button>
-        <button class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded mx-2 my-1">Pause</button>
-        <button class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded mx-2 my-1">Reset</button>
+        <button
+          @click="startTimer"
+          class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded mx-2 my-1"
+        >Start</button>
+        <button
+          @click="pauseTimer"
+          class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded mx-2 my-1"
+        >Pause</button>
+        <button
+          @click="resetTimer"
+          class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded mx-2 my-1"
+        >Reset</button>
         <button
           @click="handSetNewTime"
           class="bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded mx-2"
@@ -53,8 +62,11 @@ export default {
     return {
       setTime: false,
       time: null,
+      originalMinuite: 0,
+      originalSecond: 0,
       minuite: 0,
-      second: 0
+      second: 0,
+      tick: null
     };
   },
   methods: {
@@ -62,6 +74,8 @@ export default {
       let secondConverter = Number(this.time) * 60;
       this.minuite = Math.floor(secondConverter / 60);
       this.second = secondConverter - this.minuite * 60;
+      this.originalSecond = this.second;
+      this.originalMinuite = this.minuite;
     },
     handleSubmit() {
       if (Number(this.time) <= 0) {
@@ -79,10 +93,25 @@ export default {
       this.setTime = false;
     },
     startTimer() {
-      console.log("start");
+      this.tick = setInterval(() => {
+        if (this.second === 0 && this.minuite !== 0) {
+          this.second = 59;
+          this.minuite -= 1;
+        } else if (this.second === 0 && this.minuite == 0) {
+          clearInterval(this.startTimer);
+        } else {
+          this.second -= 1;
+        }
+      }, 1000);
     },
     pauseTimer() {
-      console.log("pause");
+      console.log("Pause");
+      clearInterval(this.tick);
+    },
+    resetTimer() {
+      clearInterval(this.tick);
+      this.second = this.originalSecond;
+      this.minuite = this.originalMinuite;
     }
   }
 };
