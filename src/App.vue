@@ -1,11 +1,16 @@
 <template>
-  <div id="app" class="flex h-full mt-10">
-    <div class="w-1/2  flex justify-center">
-      <TeamList />
+  <div id="app">
+    <div class="m-8">
+      <h1 class="text-md sm:text-xl font-bold">Team Timer</h1>
     </div>
-    <div class="w-1/2 flex flex-col justify-center">
-      <Timer />
-      <Form />
+    <div class="flex h-full mt-10 flex-col sm:flex-row">
+      <div class="sm:w-1/2 flex justify-center">
+        <TeamList />
+      </div>
+      <div class="sm:w-1/2 flex flex-col justify-center">
+        <Timer />
+        <Form />
+      </div>
     </div>
   </div>
 </template>

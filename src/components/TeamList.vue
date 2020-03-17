@@ -45,6 +45,7 @@ export default {
 .loader {
   height: 90vh;
 }
+
 .overflow {
   height: 90vh;
   overflow-y: scroll;
@@ -53,5 +54,10 @@ export default {
   width: 5px;
   background-color: #f5f5f5;
   border-radius: 3px;
+}
+@media only screen and (max-width: 640px) {
+  .overflow {
+    height: 40vh;
+  }
 }
 </style>
