@@ -2,13 +2,10 @@
   <Fragment>
     <PulseLoader v-if="this.isLoading" class="items-center flex loader" />
 
-    <div class="w-full px-8 overflow" v-else>
-      <TeamMember
-        v-for="member in members"
-        v-bind:key="member.name"
-        :member="member"
-      />
+    <div class="w-full px-8 overflow" v-else-if="this.members.length > 0">
+      <TeamMember v-for="member in members" v-bind:key="member.id" :member="member" />
     </div>
+    <h3 v-else>No Memebers Present {{this.memebers.length}}</h3>
   </Fragment>
 </template>
 
@@ -53,7 +50,8 @@ export default {
   overflow-y: scroll;
 }
 .overflow::-webkit-scrollbar {
-  width: 12px;
+  width: 5px;
   background-color: #f5f5f5;
+  border-radius: 3px;
 }
 </style>
